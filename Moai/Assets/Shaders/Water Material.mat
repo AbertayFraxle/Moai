@@ -46,12 +46,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Depth: 24.62
+    - _Depth: 67.6
+    - _Displacement: 1
+    - _Normal_Strength: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Strength: 0.07
+    - _Smoothness: 0.615
+    - _Strength: 0.06
     m_Colors:
-    - _DeepColor: {r: 0.2011837, g: 0.2981043, b: 0.31132078, a: 1}
+    - _DeepColor: {r: 0.066082194, g: 0.13342789, b: 0.14150938, a: 0.30980393}
     - _ShallowColor: {r: 0.31479177, g: 0.48458603, b: 0.509434, a: 0.101960786}
   m_BuildTextureStacks: []
 --- !u!114 &3282830987252528578
