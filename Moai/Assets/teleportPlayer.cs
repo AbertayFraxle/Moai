@@ -17,12 +17,15 @@ public class teleportPlayer : MonoBehaviour
     Vector3 zeroTranslate;
     public LayerMask layer;
     public Camera cam;
+    public float rand;
 
     private bool noise = false;
     // Start is called before the first frame update
     void Start()
     {
         timer = 0;
+
+        rand = Random.Range(10, 30);
     }
 
     // Update is called once per frame
@@ -46,7 +49,7 @@ public class teleportPlayer : MonoBehaviour
             }
         }
 
-        if (timer >= 10)
+        if (timer >= rand)
         {
             float dist = (this.transform.position - target.position).magnitude;
 
@@ -74,6 +77,7 @@ public class teleportPlayer : MonoBehaviour
                             this.transform.LookAt(target.position);
                             noise = true;
                             timer = 0;
+                            rand = Random.Range(10, 30);
                         }
                     }
                 }
