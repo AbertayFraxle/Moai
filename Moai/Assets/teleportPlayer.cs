@@ -61,11 +61,13 @@ public class teleportPlayer : MonoBehaviour
                 else
                 {
 
-
-                    this.transform.position = hit.point;
-                    this.transform.LookAt(target.position);
-                    noise = true;
-                    timer = 0;
+                    if ((hit.point - target.position).magnitude > 8)
+                    {
+                        this.transform.position = hit.point;
+                        this.transform.LookAt(target.position);
+                        noise = true;
+                        timer = 0;
+                    }
                 }
             }
 
