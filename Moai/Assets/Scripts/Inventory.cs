@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] string itemTag;
     [SerializeField] string obstacleTag;
+    [SerializeField] string doorTag;
     List<string> inventory = new List<string>();
 
     private void Start()
@@ -60,6 +61,19 @@ public class Inventory : MonoBehaviour
                         text.text = itemRequired + " required.";
                     }
                 }
+                else if (closestInteractable.tag == doorTag)
+                {
+                    Debug.Log("PLEASE");
+                    Door door = closestInteractable.GetComponent<Door>();
+                    if (door.isOpen)
+                    {
+                        text.text = "[E] Close door";
+                    }
+                    else
+                    {
+                        text.text = "[E] Open door";
+                    }
+                }
                 previousInteractable = closestInteractable;
             }
         }
@@ -85,6 +99,10 @@ public class Inventory : MonoBehaviour
                 {
                     return;
                 }
+            }
+            else if (closestInteractable.tag == doorTag)
+            {
+                closestInteractable.GetComponent<Door>().ChangeDoorState();
             }
             else
             {
@@ -116,7 +134,9 @@ public class Inventory : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == itemTag || other.tag == obstacleTag)
+        Debug.Log(doorTag);
+        Debug.Log(other.tag);
+        if (other.tag == itemTag || other.tag == obstacleTag || other.tag == doorTag)
         {
             interactables.Add(other.gameObject);
         }
@@ -124,7 +144,7 @@ public class Inventory : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == itemTag || other.tag == obstacleTag)
+        if (other.tag == itemTag || other.tag == obstacleTag || other.tag == doorTag)
         {
             interactables.Remove(other.gameObject);
             if (interactables.Count == 0)
