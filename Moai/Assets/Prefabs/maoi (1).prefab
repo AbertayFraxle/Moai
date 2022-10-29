@@ -27,14 +27,14 @@ Transform:
   m_GameObject: {fileID: 1771552417278571954}
   m_LocalRotation: {x: -0, y: 0.9177848, z: -0, w: 0.397078}
   m_LocalPosition: {x: 31.227055, y: 95.84979, z: 163.63979}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3873812834933899468}
   - {fileID: 8632294485705252078}
   - {fileID: 8632294484941973432}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 133.209, z: 0}
 --- !u!82 &9006713317795992579
 AudioSource:
