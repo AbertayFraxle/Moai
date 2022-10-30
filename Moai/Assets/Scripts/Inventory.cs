@@ -8,7 +8,8 @@ using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] GameObject heldItem;
+    [SerializeField] GameObject heldItemParent;
+    GameObject heldItem;
     [SerializeField] Vector3 heldItemPosition;
     [SerializeField] Vector3 putAwayPosition;
     [SerializeField] float handMoveTime = 1;
@@ -64,10 +65,28 @@ public class Inventory : MonoBehaviour
                     {
                         StartCoroutine(PullItemOut(itemRequired));
                         text.text = "[E] Use " + itemRequired;
+                        if (itemRequired == "Jerry Can (Empty)")
+                        {
+                            text.text = "[E] Fill Jerry Can";
+                        }
                     }
                     else
                     {
-                        text.text = itemRequired + " required.";
+                        if (inventory.Contains("Jerry Can (Full)") && itemRequired == "Jerry Can (Empty)")
+                        {
+                            text.text = "Jerry can is full";
+                        }
+                        else
+                        {
+                            text.text = itemRequired + " required.";
+                        }
+                    }
+                    if (closestInteractable.name == "Boat")
+                    {
+                        if (closestInteractable.GetComponent<Boat>().isUnlocked)
+                        {
+                            text.text = "[E] Escape";
+                        }
                     }
                 }
                 else if (closestInteractable.tag == doorTag)
@@ -100,17 +119,43 @@ public class Inventory : MonoBehaviour
                 {
                     inventory.Remove(obstacle.itemRequired);
                     obstacle.UseItem();
+                    Destroy(heldItem);
                     StopAllCoroutines();
                     StartCoroutine(PutItemAway(obstacle.itemRequired));
-                    Debug.Log(obstacle.name);
                     if (obstacle.name == "Cell Door")
                     {
+                        changeText = true;
+                        return;
+                    }
+                    if (obstacle.name == "Fuel Tank")
+                    {
+                        changeText = true;
+                        inventory.Add("Jerry Can (Full)");
+                        return;
+                    }
+                    if (obstacle.name == "Boat")
+                    {
+                        if (obstacle.GetComponent<Boat>().isUnlocked)
+                        {
+                            //WIN
+                            Debug.Log("WIN");
+                        }
                         changeText = true;
                         return;
                     }
                 }
                 else
                 {
+                    if (obstacle.name == "Boat")
+                    {
+                        if (obstacle.GetComponent<Boat>().isUnlocked)
+                        {
+                            //WIN
+                            Debug.Log("WIN");
+                        }
+                        changeText = true;
+                        return;
+                    }
                     return;
                 }
             }
@@ -165,6 +210,10 @@ public class Inventory : MonoBehaviour
             {
                 text.text = " ";
                 previousInteractable = null;
+                if (heldItem != null)
+                {
+                    StartCoroutine(PutItemAway(heldItem.name));
+                }
             }
         }
     } 
@@ -172,58 +221,59 @@ public class Inventory : MonoBehaviour
     private IEnumerator PutItemAway(string itemName)
     {
         float timer = 0;
-        GameObject item = null;
-        heldItem.SetActive(true);
+        heldItemParent.SetActive(true);
         switch (itemName)
         {
             case "Cell Key":
-                item = Instantiate(cellKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                heldItem = Instantiate(cellKeyPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
-            case "Jerry Can":
-                item = Instantiate(jerryCanPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+            case "Jerry Can (Full)":
+            case "Jerry Can (Empty)":
+                heldItem = Instantiate(jerryCanPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Boat Key":
-                item = Instantiate(boatKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                heldItem = Instantiate(boatKeyPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Boltcutters":
-                item = Instantiate(wirecuttersPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                heldItem = Instantiate(wirecuttersPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
         }
-        heldItem.transform.localPosition = heldItemPosition;
+        heldItemParent.transform.localPosition = heldItemPosition;
         while (timer < handMoveTime)
         {
-            heldItem.transform.localPosition = Vector3.Lerp(heldItemPosition, putAwayPosition, timer / handMoveTime);
+            heldItemParent.transform.localPosition = Vector3.Lerp(heldItemPosition, putAwayPosition, timer / handMoveTime);
             timer += Time.deltaTime;
             yield return null;
         }
-        heldItem.SetActive(false);
-        Destroy(item);
+        heldItemParent.SetActive(false);
+        Destroy(heldItem);
     }
 
     private IEnumerator PullItemOut(string itemName)
     {
+        if (heldItem != null) { Destroy(heldItem); }
         float timer = 0;
-        GameObject item = null;
-        heldItem.SetActive(true);
+        heldItemParent.SetActive(true);
         switch (itemName)
         {
             case "Cell Key":
-                item = Instantiate(cellKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                heldItem = Instantiate(cellKeyPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
-            case "Jerry Can":
-                item = Instantiate(jerryCanPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+            case "Jerry Can (Empty)":
+            case "Jerry Can (Full)":
+                heldItem = Instantiate(jerryCanPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Boat Key":
-                item = Instantiate(boatKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                heldItem = Instantiate(boatKeyPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Boltcutters":
-                item = Instantiate(wirecuttersPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                heldItem = Instantiate(wirecuttersPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
         }
-        heldItem.transform.localPosition = putAwayPosition;
+        heldItemParent.transform.localPosition = putAwayPosition;
         while (timer < handMoveTime)
         {
-            heldItem.transform.localPosition = Vector3.Lerp(putAwayPosition, heldItemPosition, timer / handMoveTime);
+            heldItemParent.transform.localPosition = Vector3.Lerp(putAwayPosition, heldItemPosition, timer / handMoveTime);
             timer += Time.deltaTime;
             yield return null;
         }

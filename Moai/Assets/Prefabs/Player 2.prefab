@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79586882a985ed34bb3c116ecdef969b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldItem: {fileID: 2439323075393289812}
+  heldItemParent: {fileID: 2439323075393289812}
   heldItemPosition: {x: -0.5, y: 0.85, z: 0.04}
   putAwayPosition: {x: -0.5, y: 0.1, z: 0.04}
   handMoveTime: 0.4
