@@ -14,13 +14,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpHeight = 4;
     [SerializeField] float coyoteTime = 0.2f;
 
+
     float coyoteTimer;
     Vector3 velocity;
     bool isGrounded;
     bool hasJumped;
 
+    private void Start()
+    {
+        this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("ambience", 0.5f);
+    }
+
     private void Update()
     {
+        
         coyoteTimer += Time.deltaTime;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundMask);
         if (isGrounded && velocity.y < 0)
