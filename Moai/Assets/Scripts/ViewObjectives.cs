@@ -14,7 +14,7 @@ public class ViewObjectives : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        objective3.fontStyle = FontStyles.Strikethrough;
+        
     }
 
     // Update is called once per frame
@@ -31,4 +31,35 @@ public class ViewObjectives : MonoBehaviour
             }
         }
     }
+
+    public void boatHouseOpen()
+    {
+        objective1.fontStyle = FontStyles.Strikethrough;
+    }
+
+    public void gotJerry()
+    {
+        objective2.fontStyle = FontStyles.Strikethrough;
+    }
+
+    public void fillJerry()
+    {
+        objective3.fontStyle = FontStyles.Strikethrough;
+    }
+
+    public void fuelBoat()
+    {
+        objective4.fontStyle = FontStyles.Strikethrough;
+    }
+
+    public void foundKey()
+    {
+        objective5.fontStyle = FontStyles.Strikethrough;
+    }
+
+    public void usedKey()
+    {
+        objective6.fontStyle = FontStyles.Strikethrough;
+    }
+
 }
