@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class Inventory : MonoBehaviour
 
     List<GameObject> interactables = new List<GameObject>();
     [SerializeField] string interactKeybind = "e";
-    [SerializeField] Text text;
+    [SerializeField] TextMeshProUGUI text;
     [SerializeField] Transform cameraTransform;
     GameObject previousInteractable;
 
@@ -22,6 +24,12 @@ public class Inventory : MonoBehaviour
     [SerializeField] string doorTag;
     List<string> inventory = new List<string>();
 
+    [SerializeField] GameObject jerryCanPrefab;
+    [SerializeField] GameObject cellKeyPrefab;
+    [SerializeField] GameObject boatKeyPrefab;
+    [SerializeField] GameObject wirecuttersPrefab;
+
+    bool changeText;
     private void Start()
     {
         text.text = " ";
@@ -39,8 +47,9 @@ public class Inventory : MonoBehaviour
     private void Update()
     {
         GameObject closestInteractable = null;
-        if (interactables.Count > 0)
+        if (interactables.Count > 0 || changeText)
         {
+            changeText = false;
             closestInteractable = CheckForClosestInteractable();
             if (closestInteractable != previousInteractable)
             {
@@ -82,7 +91,7 @@ public class Inventory : MonoBehaviour
             if (closestInteractable.tag == itemTag)
             {
                 inventory.Add(closestInteractable.name);
-                StartCoroutine(PutItemAway());
+                StartCoroutine(PutItemAway(closestInteractable.name));
             }
             else if (closestInteractable.tag == obstacleTag)
             {
@@ -92,7 +101,12 @@ public class Inventory : MonoBehaviour
                     inventory.Remove(obstacle.itemRequired);
                     obstacle.UseItem();
                     StopAllCoroutines();
-                    StartCoroutine(PutItemAway());
+                    StartCoroutine(PutItemAway(obstacle.itemRequired));
+                    if (obstacle.gameObject.name == "Cell Door")
+                    {
+                        changeText = true;
+                        return;
+                    }
                 }
                 else
                 {
@@ -101,6 +115,7 @@ public class Inventory : MonoBehaviour
             }
             else if (closestInteractable.tag == doorTag)
             {
+                changeText = true;
                 closestInteractable.GetComponent<DoorTest>().ChangeDoorState();
                 return;
             }
@@ -148,14 +163,31 @@ public class Inventory : MonoBehaviour
             if (interactables.Count == 0)
             {
                 text.text = " ";
+                previousInteractable = null;
             }
         }
     } 
 
-    private IEnumerator PutItemAway()
+    private IEnumerator PutItemAway(string itemName)
     {
         float timer = 0;
+        GameObject item = null;
         heldItem.SetActive(true);
+        switch (itemName)
+        {
+            case "Cell Key":
+                item = Instantiate(cellKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Jerry Can":
+                item = Instantiate(jerryCanPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Boat Key":
+                item = Instantiate(boatKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Boltcutters":
+                item = Instantiate(wirecuttersPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+        }
         heldItem.transform.localPosition = heldItemPosition;
         while (timer < handMoveTime)
         {
@@ -164,12 +196,29 @@ public class Inventory : MonoBehaviour
             yield return null;
         }
         heldItem.SetActive(false);
+        Destroy(item);
     }
 
     private IEnumerator PullItemOut(string itemName)
     {
         float timer = 0;
+        GameObject item = null;
         heldItem.SetActive(true);
+        switch (itemName)
+        {
+            case "Cell Key":
+                item = Instantiate(cellKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Jerry Can":
+                item = Instantiate(jerryCanPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Boat Key":
+                item = Instantiate(boatKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Boltcutters":
+                item = Instantiate(wirecuttersPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+        }
         heldItem.transform.localPosition = putAwayPosition;
         while (timer < handMoveTime)
         {
@@ -177,6 +226,5 @@ public class Inventory : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-        Debug.Log("FINAL");
     }
 }
