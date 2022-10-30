@@ -20,9 +20,14 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     bool hasJumped;
 
-    private void Update()
+    private void Start()
     {
         this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("ambience", 0.5f);
+    }
+
+    private void Update()
+    {
+        
         coyoteTimer += Time.deltaTime;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundMask);
         if (isGrounded && velocity.y < 0)

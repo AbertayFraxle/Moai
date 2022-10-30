@@ -17,7 +17,7 @@ public class PlayerLook : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         isMenu = false;
-        mouseSensitivity = PlayerPrefs.GetFloat("sensitivity", 0.5f);
+        mouseSensitivity = 800 * PlayerPrefs.GetFloat("sensitivity", 0.5f) + 1;
     }
 
     private void Update()
