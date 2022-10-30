@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -25,7 +23,8 @@ public class ViewObjectives : MonoBehaviour
             if (!objectiveSheet.active)
             {
                 objectiveSheet.SetActive(true);
-            }else
+            }
+            else
             {
                 objectiveSheet.SetActive(false);
             }
