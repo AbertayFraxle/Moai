@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static UnityEditor.Progress;
+using Unity.VisualScripting;
 
 public class Inventory : MonoBehaviour
 {
@@ -30,10 +31,13 @@ public class Inventory : MonoBehaviour
     [SerializeField] GameObject boatKeyPrefab;
     [SerializeField] GameObject wirecuttersPrefab;
 
+    ViewObjectives objectives;
+
     bool changeText;
     private void Start()
     {
         text.text = " ";
+        objectives = GetComponent<ViewObjectives>();
     }
 
     private void OnDrawGizmos()
@@ -133,12 +137,21 @@ public class Inventory : MonoBehaviour
                         inventory.Add("Jerry Can (Full)");
                         return;
                     }
+                    if (obstacle.name == "chain")
+                    {
+                        objectives.boatHouseOpen();
+                        return;
+                    }
                     if (obstacle.name == "Boat")
                     {
                         if (obstacle.GetComponent<Boat>().isUnlocked)
                         {
                             //WIN
                             Debug.Log("WIN");
+                        }
+                        else
+                        {
+                            objectives.usedKey();
                         }
                         changeText = true;
                         return;
@@ -228,10 +241,16 @@ public class Inventory : MonoBehaviour
                 heldItem = Instantiate(cellKeyPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Jerry Can (Full)":
+                heldItem = Instantiate(jerryCanPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
+                objectives.fillJerry();
+                break;
+
             case "Jerry Can (Empty)":
+                objectives.gotJerry();
                 heldItem = Instantiate(jerryCanPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Boat Key":
+                objectives.foundKey();
                 heldItem = Instantiate(boatKeyPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Boltcutters":
@@ -260,6 +279,9 @@ public class Inventory : MonoBehaviour
                 heldItem = Instantiate(cellKeyPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Jerry Can (Empty)":
+                objectives.gotJerry();
+                heldItem = Instantiate(jerryCanPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
+                break;
             case "Jerry Can (Full)":
                 heldItem = Instantiate(jerryCanPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;

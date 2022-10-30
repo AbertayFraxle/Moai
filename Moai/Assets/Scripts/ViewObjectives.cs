@@ -9,12 +9,12 @@ public class ViewObjectives : MonoBehaviour
     public GameObject objectiveSheet;
 
     public TextMeshProUGUI objective1, objective2, objective3, objective4, objective5, objective6;
-
+    int done;
 
     // Start is called before the first frame update
     void Start()
     {
-        objective3.fontStyle = FontStyles.Strikethrough;
+        done = 0;
     }
 
     // Update is called once per frame
@@ -31,4 +31,46 @@ public class ViewObjectives : MonoBehaviour
             }
         }
     }
+
+    public void boatHouseOpen()
+    {
+        objective1.fontStyle = FontStyles.Strikethrough;
+        done++;
+    }
+
+    public void gotJerry()
+    {
+        objective2.fontStyle = FontStyles.Strikethrough;
+        done++;
+    }
+
+    public void fillJerry()
+    {
+        objective3.fontStyle = FontStyles.Strikethrough;
+        done++;
+    }
+
+    public void fuelBoat()
+    {
+        objective4.fontStyle = FontStyles.Strikethrough;
+        done++;
+    }
+
+    public void foundKey()
+    {
+        objective5.fontStyle = FontStyles.Strikethrough;
+        done++;
+    }
+
+    public void usedKey()
+    {
+        objective6.fontStyle = FontStyles.Strikethrough;
+        done++;
+    }
+
+    public int getDone()
+    {
+        return done;
+    }
+
 }
