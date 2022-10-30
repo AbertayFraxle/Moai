@@ -47,12 +47,12 @@ public class Inventory : MonoBehaviour
     private void Update()
     {
         GameObject closestInteractable = null;
-        if (interactables.Count > 0 || changeText)
-        {
-            changeText = false;
+        if (interactables.Count > 0)
+        {      
             closestInteractable = CheckForClosestInteractable();
-            if (closestInteractable != previousInteractable)
+            if (closestInteractable != previousInteractable || changeText)
             {
+                changeText = false;
                 if (closestInteractable.tag == itemTag)
                 {
                     text.text = "[E] Pick up " + closestInteractable.name;
@@ -102,7 +102,8 @@ public class Inventory : MonoBehaviour
                     obstacle.UseItem();
                     StopAllCoroutines();
                     StartCoroutine(PutItemAway(obstacle.itemRequired));
-                    if (obstacle.gameObject.name == "Cell Door")
+                    Debug.Log(obstacle.name);
+                    if (obstacle.name == "Cell Door")
                     {
                         changeText = true;
                         return;

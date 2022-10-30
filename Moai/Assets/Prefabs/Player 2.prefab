@@ -240,15 +240,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldItem: {fileID: 2439323075393289812}
-  heldItemPosition: {x: -0.2498, y: 0.44, z: 0.04}
-  putAwayPosition: {x: -0.2498, y: 0.1, z: 0.04}
-  handMoveTime: 0.3
+  heldItemPosition: {x: -0.5, y: 0.85, z: 0.04}
+  putAwayPosition: {x: -0.5, y: 0.1, z: 0.04}
+  handMoveTime: 0.4
   interactKeybind: e
   text: {fileID: 6184825537913082600}
   cameraTransform: {fileID: 2439323074821707419}
   itemTag: Item
   obstacleTag: Obstacle
   doorTag: Door
+  jerryCanPrefab: {fileID: 7608718780816602338, guid: d4bbe70b46b520647ba7d8a694763160,
+    type: 3}
+  cellKeyPrefab: {fileID: 9022968590793685221, guid: 206d5b0ef8ee70849a5326a6145bfbc7,
+    type: 3}
+  boatKeyPrefab: {fileID: 9022968590793685221, guid: 206d5b0ef8ee70849a5326a6145bfbc7,
+    type: 3}
+  wirecuttersPrefab: {fileID: 8206587159582334581, guid: 7d1a5cf1b60af344185a3541322d4d7e,
+    type: 3}
 --- !u!82 &4810675974680822325
 AudioSource:
   m_ObjectHideFlags: 0
