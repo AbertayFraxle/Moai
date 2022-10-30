@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
@@ -44,18 +45,21 @@ public class teleportPlayer : MonoBehaviour
         timer += Time.deltaTime;
         if (noise)
         {
-            
-            if (newpoint.x < 1 && newpoint.x > 0 && newpoint.y < 1 && newpoint.y > 0) 
+            if (!target.GetComponent<safeChecker>().isSafe())
             {
-                float angle = Vector3.Angle(cam.transform.forward, this.transform.position - cam.transform.position);
-                if (Mathf.Abs(angle) < 90)
+                if (newpoint.x < 1 && newpoint.x > 0 && newpoint.y < 1 && newpoint.y > 0)
                 {
-                    this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("effects", 1); 
-                    this.GetComponent<AudioSource>().Play();
-                    noise = false;
-                    seen = true;
+                    float angle = Vector3.Angle(cam.transform.forward, this.transform.position - cam.transform.position);
+                    if (Mathf.Abs(angle) < 90)
+                    {
+                        this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("effects", 1);
+                        this.GetComponent<AudioSource>().Play();
+                        noise = false;
+                        seen = true;
+                    }
                 }
             }
+            
         }
 
         //if the moai is seen, give the player 5 seconds before it starts pursuing, also regress the death timer by half speed
@@ -73,7 +77,7 @@ public class teleportPlayer : MonoBehaviour
         {
             if (!disappeared)
             {
-                if (dist < 20)
+                if (dist < 30 && !target.GetComponent<safeChecker>().isSafe())
                 {
                     //if the moai has teleported and has not been seen by the player, increment the timer until their death
                     killTimer += Time.deltaTime;
@@ -87,6 +91,10 @@ public class teleportPlayer : MonoBehaviour
         }
         else
         {
+            if (killTimer >= 60)
+            {
+                SceneManager.LoadScene(1, LoadSceneMode.Single);
+            }
         }
 
         if (timer >= rand)
