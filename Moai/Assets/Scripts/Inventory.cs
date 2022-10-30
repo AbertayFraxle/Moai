@@ -134,6 +134,7 @@ public class Inventory : MonoBehaviour
                     if (obstacle.name == "Fuel Tank")
                     {
                         changeText = true;
+                        objectives.fillJerry();
                         inventory.Add("Jerry Can (Full)");
                         return;
                     }
@@ -241,7 +242,6 @@ public class Inventory : MonoBehaviour
                 break;
             case "Jerry Can (Full)":
                 heldItem = Instantiate(jerryCanPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
-                objectives.fillJerry();
                 break;
 
             case "Jerry Can (Empty)":
