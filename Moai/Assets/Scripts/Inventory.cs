@@ -140,11 +140,12 @@ public class Inventory : MonoBehaviour
                     }
                     if (obstacle.name == "chain")
                     {
-                        objectives.boatHouseOpen();
+                        
                         return;
                     }
                     if (obstacle.name == "Boat")
                     {
+                        
                         if (obstacle.GetComponent<Boat>().isUnlocked)
                         {
                             //WIN
@@ -152,7 +153,7 @@ public class Inventory : MonoBehaviour
                         }
                         else
                         {
-                            objectives.usedKey();
+                           
                         }
                         changeText = true;
                         return;
@@ -166,6 +167,7 @@ public class Inventory : MonoBehaviour
                         {
                             SceneManager.LoadScene("Winning",LoadSceneMode.Single);
                         }
+                        
                         changeText = true;
                         return;
                     }
@@ -278,16 +280,18 @@ public class Inventory : MonoBehaviour
                 heldItem = Instantiate(cellKeyPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Jerry Can (Empty)":
-                objectives.gotJerry();
+                
                 heldItem = Instantiate(jerryCanPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Jerry Can (Full)":
                 heldItem = Instantiate(jerryCanPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Boat Key":
+                objectives.usedKey();
                 heldItem = Instantiate(boatKeyPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Boltcutters":
+                objectives.boatHouseOpen();
                 heldItem = Instantiate(wirecuttersPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
         }
