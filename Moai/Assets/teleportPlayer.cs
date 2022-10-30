@@ -45,36 +45,35 @@ public class teleportPlayer : MonoBehaviour
     {
         done = objmanager.GetComponent<ViewObjectives>().getDone();
 
-        if (done > 0) { 
+        if (done > 0) {
             moveSpeed = 6 + (done / 2);
             Vector3 newpoint = cam.WorldToViewportPoint(this.transform.position);
             float dist = (this.transform.position - target.position).magnitude;
             timer += Time.deltaTime;
             if (noise)
             {
-                if (!target.GetComponent<safeChecker>().isSafe())
+
+                if (newpoint.x < 1 && newpoint.x > 0 && newpoint.y < 1 && newpoint.y > 0)
                 {
-                    if (newpoint.x < 1 && newpoint.x > 0 && newpoint.y < 1 && newpoint.y > 0)
+                    float angle = Vector3.Angle(cam.transform.forward, this.transform.position - cam.transform.position);
+                    if (Mathf.Abs(angle) < 90)
                     {
-                        float angle = Vector3.Angle(cam.transform.forward, this.transform.position - cam.transform.position);
-                        if (Mathf.Abs(angle) < 90)
-                        {
-                            this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("effects", 1f);
-                            this.GetComponent<AudioSource>().Play();
-                            noise = false;
-                            seen = true;
-                        }
+                        this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("effects", 1f);
+                        this.GetComponent<AudioSource>().Play();
+                        noise = false;
+                        seen = true;
                     }
                 }
-
             }
+        
+            
 
             //if the moai is seen, give the player 5 seconds before it starts pursuing, also regress the death timer by half speed
             if (seen)
             {
                 chaseTimer += Time.deltaTime;
                 killTimer -= Time.deltaTime / 2;
-                if (chaseTimer > 2 + (done / 2))
+                if (chaseTimer > (2 + (done / 2)))
                 {
                     this.transform.LookAt(target.position);
                     this.transform.position += transform.forward * moveSpeed * Time.deltaTime;
@@ -85,7 +84,7 @@ public class teleportPlayer : MonoBehaviour
             {
                 if (!disappeared)
                 {
-                    if (dist < 30 && !target.GetComponent<safeChecker>().isSafe())
+                    if (dist < 30)
                     {
                         //if the moai has teleported and has not been seen by the player, increment the timer until their death
                         killTimer += Time.deltaTime;
@@ -99,7 +98,7 @@ public class teleportPlayer : MonoBehaviour
             }
             else
             {
-                if (killTimer >= 60)
+                if (killTimer >= 30)
                 {
                     SceneManager.LoadScene(1, LoadSceneMode.Single);
                 }
@@ -107,13 +106,10 @@ public class teleportPlayer : MonoBehaviour
 
             if (timer >= rand)
             {
-                if ((newpoint.x > 1 || newpoint.x < 0) && (newpoint.y > 1 || newpoint.y < 0) || (dist > 100))
+                if ((newpoint.x > 1 || newpoint.x < 0) && (newpoint.y > 1 || newpoint.y < 0) )
                 {
                     if (disRand < disChance)
                     {
-
-
-
 
                         Vector2 random = (Random.insideUnitCircle * 10);
                         randomtranslate.Set(random.x, 100, random.y);
