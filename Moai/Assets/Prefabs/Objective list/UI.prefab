@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Objectives:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5dc27514af1b9e04da655dccc7aa61b8, type: 2}
-  m_sharedMaterial: {fileID: -8188296150640259426, guid: 5dc27514af1b9e04da655dccc7aa61b8,
+  m_fontAsset: {fileID: 11400000, guid: f287e44f07557174882befa71993b877, type: 2}
+  m_sharedMaterial: {fileID: -503788945657289770, guid: f287e44f07557174882befa71993b877,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -327,8 +327,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- Fill jerry can'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5dc27514af1b9e04da655dccc7aa61b8, type: 2}
-  m_sharedMaterial: {fileID: -8188296150640259426, guid: 5dc27514af1b9e04da655dccc7aa61b8,
+  m_fontAsset: {fileID: 11400000, guid: f287e44f07557174882befa71993b877, type: 2}
+  m_sharedMaterial: {fileID: -503788945657289770, guid: f287e44f07557174882befa71993b877,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -539,8 +539,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- ESCAPE'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5dc27514af1b9e04da655dccc7aa61b8, type: 2}
-  m_sharedMaterial: {fileID: -8188296150640259426, guid: 5dc27514af1b9e04da655dccc7aa61b8,
+  m_fontAsset: {fileID: 11400000, guid: f287e44f07557174882befa71993b877, type: 2}
+  m_sharedMaterial: {fileID: -503788945657289770, guid: f287e44f07557174882befa71993b877,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -675,8 +675,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- Find boat key'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5dc27514af1b9e04da655dccc7aa61b8, type: 2}
-  m_sharedMaterial: {fileID: -8188296150640259426, guid: 5dc27514af1b9e04da655dccc7aa61b8,
+  m_fontAsset: {fileID: 11400000, guid: f287e44f07557174882befa71993b877, type: 2}
+  m_sharedMaterial: {fileID: -503788945657289770, guid: f287e44f07557174882befa71993b877,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -811,8 +811,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- Find jerry can'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5dc27514af1b9e04da655dccc7aa61b8, type: 2}
-  m_sharedMaterial: {fileID: -8188296150640259426, guid: 5dc27514af1b9e04da655dccc7aa61b8,
+  m_fontAsset: {fileID: 11400000, guid: f287e44f07557174882befa71993b877, type: 2}
+  m_sharedMaterial: {fileID: -503788945657289770, guid: f287e44f07557174882befa71993b877,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -947,8 +947,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- Open BoaT house'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5dc27514af1b9e04da655dccc7aa61b8, type: 2}
-  m_sharedMaterial: {fileID: -8188296150640259426, guid: 5dc27514af1b9e04da655dccc7aa61b8,
+  m_fontAsset: {fileID: 11400000, guid: f287e44f07557174882befa71993b877, type: 2}
+  m_sharedMaterial: {fileID: -503788945657289770, guid: f287e44f07557174882befa71993b877,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1193,8 +1193,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- Fuel Boat'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5dc27514af1b9e04da655dccc7aa61b8, type: 2}
-  m_sharedMaterial: {fileID: -8188296150640259426, guid: 5dc27514af1b9e04da655dccc7aa61b8,
+  m_fontAsset: {fileID: 11400000, guid: f287e44f07557174882befa71993b877, type: 2}
+  m_sharedMaterial: {fileID: -503788945657289770, guid: f287e44f07557174882befa71993b877,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
