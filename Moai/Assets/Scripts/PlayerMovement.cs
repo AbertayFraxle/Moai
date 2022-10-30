@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpHeight = 4;
     [SerializeField] float coyoteTime = 0.2f;
 
+
     float coyoteTimer;
     Vector3 velocity;
     bool isGrounded;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("ambience", 0.5f);
         coyoteTimer += Time.deltaTime;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundMask);
         if (isGrounded && velocity.y < 0)

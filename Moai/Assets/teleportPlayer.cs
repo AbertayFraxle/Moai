@@ -50,7 +50,7 @@ public class teleportPlayer : MonoBehaviour
                 float angle = Vector3.Angle(cam.transform.forward, this.transform.position - cam.transform.position);
                 if (Mathf.Abs(angle) < 90)
                 {
-
+                    this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("effects", 1); 
                     this.GetComponent<AudioSource>().Play();
                     noise = false;
                     seen = true;
@@ -91,13 +91,13 @@ public class teleportPlayer : MonoBehaviour
 
         if (timer >= rand)
         {
-
-            if (disRand < disChance)
+            if ((newpoint.x > 1 || newpoint.x < 0) && (newpoint.y > 1 || newpoint.y < 0) || (dist > 200))
             {
+                if (disRand < disChance)
+                {
                
 
-                if ((newpoint.x > 1 || newpoint.x < 0) && (newpoint.y > 1 || newpoint.y < 0) || (dist > 200))
-                {
+                
 
                     Vector2 random = (Random.insideUnitCircle * 10);
                     randomtranslate.Set(random.x, 100, random.y);
@@ -129,15 +129,16 @@ public class teleportPlayer : MonoBehaviour
                         }
                     }
                 }
-            }else
-            {
-                disRand = Mathf.Ceil(Random.value * disChance);
-                disappeared = true;
-                seen = false;
-                rand = Random.Range(10, 30);
-                this.transform.position = new Vector3(0, -100, 0);
-                timer = 0;
-                disChance += 1;
+                else
+                {
+                    disRand = Mathf.Ceil(Random.value * disChance);
+                    disappeared = true;
+                    seen = false;
+                    rand = Random.Range(10, 30);
+                    this.transform.position = new Vector3(0, -100, 0);
+                    timer = 0;
+                    disChance += 1;
+                }
             }
         }
     }

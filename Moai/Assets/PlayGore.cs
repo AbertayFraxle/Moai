@@ -30,7 +30,7 @@ public class PlayGore : MonoBehaviour
                     float angle = Vector3.Angle(cam.transform.forward, this.transform.position - cam.transform.position);
                     if (Mathf.Abs(angle) < 90)
                     {
-
+                        this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("effects", 1);
                         this.GetComponent<AudioSource>().Play();
                         playSound = false;
                     }
