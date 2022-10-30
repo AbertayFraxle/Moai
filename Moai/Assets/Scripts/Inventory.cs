@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using static UnityEditor.Progress;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class Inventory : MonoBehaviour
 {
@@ -163,8 +164,7 @@ public class Inventory : MonoBehaviour
                     {
                         if (obstacle.GetComponent<Boat>().isUnlocked)
                         {
-                            //WIN
-                            Debug.Log("WIN");
+                            SceneManager.LoadScene("Winning",LoadSceneMode.Single);
                         }
                         changeText = true;
                         return;
