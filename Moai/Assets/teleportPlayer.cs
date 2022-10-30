@@ -26,13 +26,12 @@ public class teleportPlayer : MonoBehaviour
     public float disRand;
     [SerializeField]
     public GameObject objmanager;
-    public ViewObjectives objectives;
-
+    public int done;
     private bool noise;
     // Start is called before the first frame update
     void Start()
     {
-        objectives = objmanager.GetComponent<ViewObjectives>();
+        
         timer = 0;
         seen = false;
         rand = Random.Range(10, 30);
@@ -44,16 +43,10 @@ public class teleportPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!active)
-        {
-            if (objectives.getDone() > 0)
-            {
-                active = true;
-            }
-        }
-        else
-        {
-            moveSpeed = 6 + (objectives.getDone() / 2);
+        done = objmanager.GetComponent<ViewObjectives>().getDone();
+
+        if (done > 0) { 
+            moveSpeed = 6 + (done / 2);
             Vector3 newpoint = cam.WorldToViewportPoint(this.transform.position);
             float dist = (this.transform.position - target.position).magnitude;
             timer += Time.deltaTime;
@@ -81,7 +74,7 @@ public class teleportPlayer : MonoBehaviour
             {
                 chaseTimer += Time.deltaTime;
                 killTimer -= Time.deltaTime / 2;
-                if (chaseTimer > 2 + (objectives.getDone() / 2))
+                if (chaseTimer > 2 + (done / 2))
                 {
                     this.transform.LookAt(target.position);
                     this.transform.position += transform.forward * moveSpeed * Time.deltaTime;
@@ -144,7 +137,7 @@ public class teleportPlayer : MonoBehaviour
                                     this.transform.LookAt(target.position);
                                     noise = true;
                                     timer = 0;
-                                    rand = Random.Range(7 - objectives.getDone(), 30 / objectives.getDone());
+                                    rand = Random.Range(7 - done, 30 / done);
                                     chaseTimer = 0;
                                     seen = false;
                                     disappeared = false;
