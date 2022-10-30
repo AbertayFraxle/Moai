@@ -15,6 +15,7 @@ public class teleportPlayer : MonoBehaviour
     public Transform target;
     Vector3 randomtranslate;
     Vector3 zeroTranslate;
+    [SerializeField]
     public LayerMask layer;
     public Camera cam;
     public float rand;
@@ -22,6 +23,7 @@ public class teleportPlayer : MonoBehaviour
     public float disChance;
     public float moveSpeed;
     public float disRand;
+
 
     private bool noise = false;
     // Start is called before the first frame update
@@ -31,13 +33,14 @@ public class teleportPlayer : MonoBehaviour
         seen = false;
         rand = Random.Range(10, 30);
         disChance = 2;
+        disRand = Mathf.Ceil(Random.value * disChance);
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 newpoint = cam.WorldToViewportPoint(this.transform.position);
-
+        float dist = (this.transform.position - target.position).magnitude;
         timer += Time.deltaTime;
         if (noise)
         {
@@ -70,8 +73,11 @@ public class teleportPlayer : MonoBehaviour
         {
             if (!disappeared)
             {
-                //if the moai has teleported and has not been seen by the player, increment the timer until their death
-                killTimer += Time.deltaTime;
+                if (dist < 20)
+                {
+                    //if the moai has teleported and has not been seen by the player, increment the timer until their death
+                    killTimer += Time.deltaTime;
+                }
             }
         }
 
@@ -88,7 +94,7 @@ public class teleportPlayer : MonoBehaviour
 
             if (disRand < disChance)
             {
-                float dist = (this.transform.position - target.position).magnitude;
+               
 
                 if ((newpoint.x > 1 || newpoint.x < 0) && (newpoint.y > 1 || newpoint.y < 0) || (dist > 100))
                 {

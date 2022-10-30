@@ -966,8 +966,18 @@ PrefabInstance:
       objectReference: {fileID: 1624048727}
     - target: {fileID: 9006713317795992578, guid: b8c3b5ebfcd58174d8a27cab49c958ef,
         type: 3}
+      propertyPath: disChance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006713317795992578, guid: b8c3b5ebfcd58174d8a27cab49c958ef,
+        type: 3}
       propertyPath: moveSpeed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006713317795992578, guid: b8c3b5ebfcd58174d8a27cab49c958ef,
+        type: 3}
+      propertyPath: layer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
