@@ -325,7 +325,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Fill fuel can'
+  m_text: '- Fill jerry can'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5dc27514af1b9e04da655dccc7aa61b8, type: 2}
   m_sharedMaterial: {fileID: -8188296150640259426, guid: 5dc27514af1b9e04da655dccc7aa61b8,
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Find fuel can'
+  m_text: '- Find jerry can'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5dc27514af1b9e04da655dccc7aa61b8, type: 2}
   m_sharedMaterial: {fileID: -8188296150640259426, guid: 5dc27514af1b9e04da655dccc7aa61b8,
