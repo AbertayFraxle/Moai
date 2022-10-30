@@ -28,7 +28,7 @@ public class teleportPlayer : MonoBehaviour
     public GameObject objmanager;
     public ViewObjectives objectives;
 
-    private bool noise = false;
+    private bool noise;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +38,7 @@ public class teleportPlayer : MonoBehaviour
         rand = Random.Range(10, 30);
         disChance = 2;
         disRand = Mathf.Ceil(Random.value * disChance);
+        active = false;
     }
 
     // Update is called once per frame
