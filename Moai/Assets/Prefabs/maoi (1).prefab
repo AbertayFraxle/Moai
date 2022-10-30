@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1937968221103893382}
   - component: {fileID: 9006713317795992579}
   - component: {fileID: 9006713317795992578}
+  - component: {fileID: 1497455308}
+  - component: {fileID: 1497455307}
   m_Layer: 0
   m_Name: maoi (1)
   m_TagString: Untagged
@@ -25,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771552417278571954}
-  m_LocalRotation: {x: -0, y: 0.9177848, z: -0, w: 0.397078}
+  m_LocalRotation: {x: 0, y: 0.9177858, z: 0, w: 0.3970759}
   m_LocalPosition: {x: 31.227055, y: 95.84979, z: 163.63979}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
@@ -34,7 +36,7 @@ Transform:
   - {fileID: 8632294485705252078}
   - {fileID: 8632294484941973432}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 133.209, z: 0}
 --- !u!82 &9006713317795992579
 AudioSource:
@@ -144,11 +146,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749c5a6263d11b94f85c157181dfdf3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
+  chaseTimer: 0
+  killTimer: 0
   target: {fileID: 0}
   layer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 64
   cam: {fileID: 0}
+  rand: 0
+  seen: 0
+  disappeared: 0
+  disChance: 2
+  moveSpeed: 5
+  disRand: 0
+--- !u!65 &1497455308
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771552417278571954}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1497455307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771552417278571954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77cb03feb3563374e80c7c1b703e44e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4506234690103270006
 GameObject:
   m_ObjectHideFlags: 0

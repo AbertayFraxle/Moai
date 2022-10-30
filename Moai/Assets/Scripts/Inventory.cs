@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -13,14 +15,21 @@ public class Inventory : MonoBehaviour
 
     List<GameObject> interactables = new List<GameObject>();
     [SerializeField] string interactKeybind = "e";
-    [SerializeField] Text text;
+    [SerializeField] TextMeshProUGUI text;
     [SerializeField] Transform cameraTransform;
     GameObject previousInteractable;
 
     [SerializeField] string itemTag;
     [SerializeField] string obstacleTag;
+    [SerializeField] string doorTag;
     List<string> inventory = new List<string>();
 
+    [SerializeField] GameObject jerryCanPrefab;
+    [SerializeField] GameObject cellKeyPrefab;
+    [SerializeField] GameObject boatKeyPrefab;
+    [SerializeField] GameObject wirecuttersPrefab;
+
+    bool changeText;
     private void Start()
     {
         text.text = " ";
@@ -39,10 +48,11 @@ public class Inventory : MonoBehaviour
     {
         GameObject closestInteractable = null;
         if (interactables.Count > 0)
-        {
+        {      
             closestInteractable = CheckForClosestInteractable();
-            if (closestInteractable != previousInteractable)
+            if (closestInteractable != previousInteractable || changeText)
             {
+                changeText = false;
                 if (closestInteractable.tag == itemTag)
                 {
                     text.text = "[E] Pick up " + closestInteractable.name;
@@ -60,6 +70,18 @@ public class Inventory : MonoBehaviour
                         text.text = itemRequired + " required.";
                     }
                 }
+                else if (closestInteractable.tag == doorTag)
+                {
+                    DoorTest door = closestInteractable.GetComponent<DoorTest>();
+                    if (door.isOpen)
+                    {
+                        text.text = "[E] Close door";
+                    }
+                    else
+                    {
+                        text.text = "[E] Open door";
+                    }
+                }
                 previousInteractable = closestInteractable;
             }
         }
@@ -69,7 +91,7 @@ public class Inventory : MonoBehaviour
             if (closestInteractable.tag == itemTag)
             {
                 inventory.Add(closestInteractable.name);
-                StartCoroutine(PutItemAway());
+                StartCoroutine(PutItemAway(closestInteractable.name));
             }
             else if (closestInteractable.tag == obstacleTag)
             {
@@ -79,12 +101,24 @@ public class Inventory : MonoBehaviour
                     inventory.Remove(obstacle.itemRequired);
                     obstacle.UseItem();
                     StopAllCoroutines();
-                    StartCoroutine(PutItemAway());
+                    StartCoroutine(PutItemAway(obstacle.itemRequired));
+                    Debug.Log(obstacle.name);
+                    if (obstacle.name == "Cell Door")
+                    {
+                        changeText = true;
+                        return;
+                    }
                 }
                 else
                 {
                     return;
                 }
+            }
+            else if (closestInteractable.tag == doorTag)
+            {
+                changeText = true;
+                closestInteractable.GetComponent<DoorTest>().ChangeDoorState();
+                return;
             }
             else
             {
@@ -116,7 +150,7 @@ public class Inventory : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == itemTag || other.tag == obstacleTag)
+        if (other.tag == itemTag || other.tag == obstacleTag || other.tag == doorTag)
         {
             interactables.Add(other.gameObject);
         }
@@ -124,20 +158,37 @@ public class Inventory : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == itemTag || other.tag == obstacleTag)
+        if (other.tag == itemTag || other.tag == obstacleTag || other.tag == doorTag)
         {
             interactables.Remove(other.gameObject);
             if (interactables.Count == 0)
             {
                 text.text = " ";
+                previousInteractable = null;
             }
         }
     } 
 
-    private IEnumerator PutItemAway()
+    private IEnumerator PutItemAway(string itemName)
     {
         float timer = 0;
+        GameObject item = null;
         heldItem.SetActive(true);
+        switch (itemName)
+        {
+            case "Cell Key":
+                item = Instantiate(cellKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Jerry Can":
+                item = Instantiate(jerryCanPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Boat Key":
+                item = Instantiate(boatKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Boltcutters":
+                item = Instantiate(wirecuttersPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+        }
         heldItem.transform.localPosition = heldItemPosition;
         while (timer < handMoveTime)
         {
@@ -146,12 +197,29 @@ public class Inventory : MonoBehaviour
             yield return null;
         }
         heldItem.SetActive(false);
+        Destroy(item);
     }
 
     private IEnumerator PullItemOut(string itemName)
     {
         float timer = 0;
+        GameObject item = null;
         heldItem.SetActive(true);
+        switch (itemName)
+        {
+            case "Cell Key":
+                item = Instantiate(cellKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Jerry Can":
+                item = Instantiate(jerryCanPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Boat Key":
+                item = Instantiate(boatKeyPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+            case "Boltcutters":
+                item = Instantiate(wirecuttersPrefab, heldItem.transform.position, Quaternion.identity, heldItem.transform);
+                break;
+        }
         heldItem.transform.localPosition = putAwayPosition;
         while (timer < handMoveTime)
         {
@@ -159,6 +227,5 @@ public class Inventory : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-        Debug.Log("FINAL");
     }
 }

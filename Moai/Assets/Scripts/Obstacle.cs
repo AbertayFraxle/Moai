@@ -6,7 +6,7 @@ public class Obstacle : MonoBehaviour
 {
     public string itemRequired;
 
-    public void UseItem()
+    public virtual void UseItem()
     {
         Destroy(gameObject);
     }

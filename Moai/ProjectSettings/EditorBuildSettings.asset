@@ -6,9 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: 383c24a041ba2164b9e062ca4dd2d996
-  - enabled: 1
+
     path: Assets/Scenes/PathTest.unity
     guid: 625d0818280d66749a094b8b5329a8d2
+  - enabled: 1
+    path: Assets/Scenes/Jumpscare.unity
+    guid: 5271b4b784669e24b9f341dbda883c7d
+
   m_configObjects: {}
