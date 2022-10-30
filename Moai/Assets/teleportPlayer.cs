@@ -96,7 +96,7 @@ public class teleportPlayer : MonoBehaviour
             {
                
 
-                if ((newpoint.x > 1 || newpoint.x < 0) && (newpoint.y > 1 || newpoint.y < 0) || (dist > 100))
+                if ((newpoint.x > 1 || newpoint.x < 0) && (newpoint.y > 1 || newpoint.y < 0) || (dist > 200))
                 {
 
                     Vector2 random = (Random.insideUnitCircle * 10);
