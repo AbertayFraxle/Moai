@@ -888,7 +888,7 @@ GameObject:
   - component: {fileID: 1065221315}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Effect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -912,7 +912,7 @@ Transform:
   - {fileID: 1190940541978739461}
   - {fileID: 3792388624296931216}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -80.897, y: 0, z: 0}
 --- !u!82 &1065221316
 AudioSource:

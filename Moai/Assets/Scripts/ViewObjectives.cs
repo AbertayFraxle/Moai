@@ -31,6 +31,10 @@ public class ViewObjectives : MonoBehaviour
         }
     }
 
+    public void increaseDone()
+    {
+        done++;
+    }
     public void boatHouseOpen()
     {
         objective1.fontStyle = FontStyles.Strikethrough;

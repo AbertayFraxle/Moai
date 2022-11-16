@@ -13,6 +13,7 @@ public class PlayGore : MonoBehaviour
     {
         playSound = true;
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("effects", 1);
     }
 
     // Update is called once per frame
@@ -36,6 +37,11 @@ public class PlayGore : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            this.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("effects", 1);
         }
     }
 }

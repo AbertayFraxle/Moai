@@ -255,6 +255,7 @@ public class Inventory : MonoBehaviour
                 heldItem = Instantiate(boatKeyPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
             case "Boltcutters":
+                objectives.increaseDone();
                 heldItem = Instantiate(wirecuttersPrefab, heldItemParent.transform.position, Quaternion.identity, heldItemParent.transform);
                 break;
         }

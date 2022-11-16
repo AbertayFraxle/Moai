@@ -35,12 +35,23 @@ public class settings : MonoBehaviour
         PlayerPrefs.SetFloat("ambience", ambience.value);
 
         player.GetComponent<AudioSource>().volume = ambience.value;
+
+        PlayerPrefs.Save();
     }
 
     public void effectUpdate()
     {
         PlayerPrefs.SetFloat("effects", effects.value);
-        enemy.GetComponent<AudioSource>().volume = effects.value;
+        PlayerPrefs.Save();
+
+        GameObject[] effectObjects = GameObject.FindGameObjectsWithTag("Effect");
+
+        foreach (GameObject effectObject in effectObjects)
+        {
+            effectObject.GetComponent<AudioSource>().volume = effects.value;
+        }
+       
+
 
     }
 
