@@ -71,7 +71,10 @@ public class settings : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
 
 
 }
