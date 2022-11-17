@@ -34,14 +34,14 @@ public class Inventory : MonoBehaviour
     [SerializeField] GameObject boatKeyPrefab;
     [SerializeField] GameObject wirecuttersPrefab;
 
-    ViewObjectives objectives;
+    [SerializeField] ViewObjectives objectives;
 
     bool gripped = false;
+    bool canGrip = true;
     bool changeText;
     private void Start()
     {
         text.text = " ";
-        objectives = GetComponent<ViewObjectives>();
     }
 
     private void OnDrawGizmos()
@@ -114,24 +114,27 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        if (!gripped)
+        if (canGrip)
         {
             if ((gripAction.action.ReadValue<float>() >= 0.7))
             {
+                canGrip = false;
                 gripped = true;
             }
         }else
         {
-            if (gripAction.action.ReadValue<float>() <= 0.1){
+            if (gripAction.action.ReadValue<float>() <= 0.2){
                 gripped = false;
+                canGrip = true;
             }
         }
 
-        
 
 
         if (gripped && closestInteractable != null)
         {
+            gripped = false;
+
             print("should be putting away");
             if (closestInteractable.tag == itemTag)
             {
