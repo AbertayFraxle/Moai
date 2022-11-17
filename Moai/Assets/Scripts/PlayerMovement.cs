@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         
-        coyoteTimer += Time.deltaTime;
+       /* coyoteTimer += Time.deltaTime;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundMask);
         if (isGrounded && velocity.y < 0)
         {
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
 
-        characterController.Move(velocity * Time.deltaTime);
+        characterController.Move(velocity * Time.deltaTime);*/
 
     }
 }

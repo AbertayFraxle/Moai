@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Winning.unity
     guid: 5829c787e2827b842ae02d427e4e5ac7
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: a69f9e7f8fc4a3248afa0d737ce11bca,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: b8524852f0ec2304ab73b9144d5b273f,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: cf79a0a62fa00714180680b7aa3152b1,
+      type: 2}

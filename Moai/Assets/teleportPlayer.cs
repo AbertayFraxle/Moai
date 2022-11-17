@@ -100,7 +100,7 @@ public class teleportPlayer : MonoBehaviour
             {
                 if (killTimer >= 30)
                 {
-                    SceneManager.LoadScene(2, LoadSceneMode.Single);
+                   SceneManager.LoadScene(2, LoadSceneMode.Single);
                 }
             }
 

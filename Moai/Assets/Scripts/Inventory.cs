@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Inventory : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] Transform cameraTransform;
     GameObject previousInteractable;
 
+    public InputActionProperty gripAction;
+
     [SerializeField] string itemTag;
     [SerializeField] string obstacleTag;
     [SerializeField] string doorTag;
@@ -33,6 +36,7 @@ public class Inventory : MonoBehaviour
 
     ViewObjectives objectives;
 
+    bool gripped = false;
     bool changeText;
     private void Start()
     {
@@ -41,12 +45,13 @@ public class Inventory : MonoBehaviour
     }
 
     private void OnDrawGizmos()
-    { /*
-        Gizmos.DrawLine(cameraTransform.position, cameraTransform.forward * 45);
+    { 
+       /* Gizmos.DrawLine(cameraTransform.position, cameraTransform.forward * 45);
         for (int i = 0; i < interactables.Count; i++)
         {
             Gizmos.DrawLine(interactables[i].transform.position, transform.position);
-        } */
+        } 
+       */
     }
 
     private void Update()
@@ -60,7 +65,7 @@ public class Inventory : MonoBehaviour
                 changeText = false;
                 if (closestInteractable.tag == itemTag)
                 {
-                    text.text = "[E] Pick up " + closestInteractable.name;
+                    text.text = "[Grab] Pick up " + closestInteractable.name;
                 }
                 else if (closestInteractable.tag == obstacleTag)
                 {
@@ -68,10 +73,10 @@ public class Inventory : MonoBehaviour
                     if (inventory.Contains(itemRequired))
                     {
                         StartCoroutine(PullItemOut(itemRequired));
-                        text.text = "[E] Use " + itemRequired;
+                        text.text = "[Grab] Use " + itemRequired;
                         if (itemRequired == "Jerry Can (Empty)")
                         {
-                            text.text = "[E] Fill Jerry Can";
+                            text.text = "[Grab] Fill Jerry Can";
                         }
                     }
                     else
@@ -89,7 +94,7 @@ public class Inventory : MonoBehaviour
                     {
                         if (closestInteractable.GetComponent<Boat>().isUnlocked)
                         {
-                            text.text = "[E] Escape";
+                            text.text = "[Grab] Escape";
                         }
                     }
                 }
@@ -98,19 +103,36 @@ public class Inventory : MonoBehaviour
                     DoorTest door = closestInteractable.GetComponent<DoorTest>();
                     if (door.isOpen)
                     {
-                        text.text = "[E] Close door";
+                        text.text = "[Grab] Close door";
                     }
                     else
                     {
-                        text.text = "[E] Open door";
+                        text.text = "[Grab] Open door";
                     }
                 }
                 previousInteractable = closestInteractable;
             }
         }
 
-        if (Input.GetKeyDown(interactKeybind) && closestInteractable != null)
+        if (!gripped)
         {
+            if ((gripAction.action.ReadValue<float>() >= 0.7))
+            {
+                gripped = true;
+            }
+        }else
+        {
+            if (gripAction.action.ReadValue<float>() <= 0.1){
+                gripped = false;
+            }
+        }
+
+        
+
+
+        if (gripped && closestInteractable != null)
+        {
+            print("should be putting away");
             if (closestInteractable.tag == itemTag)
             {
                 inventory.Add(closestInteractable.name);
